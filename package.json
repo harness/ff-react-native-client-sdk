@@ -1,0 +1,32 @@
+{
+  "name": "launchdarkly-react-native-client-sdk",
+  "version": "3.2.2",
+  "description": "",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "check-typescript": "node_modules/typescript/bin/tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/launchdarkly/react-native-client-sdk.git"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": "LaunchDarkly",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/launchdarkly/react-native-client-sdk/issues"
+  },
+  "homepage": "https://docs.launchdarkly.com/sdk/client-side/react-native",
+  "peerDependencies": {
+    "react-native": "~0.63",
+    "react": "~16.13.0"
+  },
+  "devDependencies": {
+    "metro-react-native-babel-preset": "0.59.0",
+    "typescript": "^3.8.3"
+  }
+}
