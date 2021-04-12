@@ -16,8 +16,8 @@ Pod::Spec.new do |ff|
   ff.ios.deployment_target = "10.0"
 
   ff.source       = { :git => "https://github.com/trajce-bu/ff-react-native-client-sdk.git" }
-  s.source_files  = "*.{h,m,swift}"
+  ff.source_files  = "ios/*.{h,m,swift}"
 
   ff.swift_versions = ['5.0', '5.1', '5.2', '5.3']
-  s.dependency "React"
+  ff.dependency "React"
 end
