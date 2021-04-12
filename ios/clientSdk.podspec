@@ -20,4 +20,5 @@ Pod::Spec.new do |ff|
 
   ff.swift_versions = ['5.0', '5.1', '5.2', '5.3']
   ff.dependency "React"
+  ff.dependency "ff-ios-client-sdk"
 end
