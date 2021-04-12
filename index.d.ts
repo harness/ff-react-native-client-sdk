@@ -1,4 +1,4 @@
-declare module 'ff-client-new-sdk' {
+declare module 'ff-react-native-client-sdk' {
     //Model class to describe a target for features evaluations
     export class CfTarget {
         identifier: string
