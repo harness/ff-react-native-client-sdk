@@ -11,10 +11,6 @@
     "test": "jest",
     "lint": "eslint ."
   },
-  "repository": {
-	  "type": "git",
-	  "url": "https://github.com/trajce-bu/ff-react-native-client-sdk.git#sdk_update"
-  },
   "author": "Harness Inc",
   "license": "Apache-2.0",
   "dependencies": {
