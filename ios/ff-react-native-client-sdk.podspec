@@ -9,16 +9,16 @@ Pod::Spec.new do |ff|
                    DESC
 
   ff.homepage     = "https://github.com/drone/ff-react-native-client-sdk"
-  ff.license      = { :type => "Apache License, Version 2.0", :file => "LICENSE" }
-  ff.author             =  "Harness Inc"
+  ff.license      = { :type => "Apache-2.0", :file => "../LICENSE" }
+  ff.author       = "Harness Inc"
 
   ff.platform     = :ios, "10.0"
-  ff.ios.deployment_target = "10.0"
 
-  ff.source       = { :git => "https://github.com/trajce-bu/ff-react-native-client-sdk.git" }
-  ff.source_files  = "ios/*.{h,m,swift}"
+  ff.source       = { :git => "https://github.com/trajce-bu/ff-react-native-client-sdk.git", :tag => "sdk_update" }
+  ff.source_files  = "**/*.{h,m,swift}"
 
-  ff.swift_versions = ['5.0', '5.1', '5.2', '5.3']
+  ff.swift_version = "5.0"
   ff.dependency "React"
   ff.dependency "ff-ios-client-sdk"
+  
 end
