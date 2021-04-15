@@ -9,10 +9,20 @@ Harness CF React Native SDK
 
 ## _Setup_
 
-To install SDK, add a dependency to project's `package.json` file:
+To install SDK, declare a dependency to project's `package.json` file:
 ```JSON
 "ff-react-native-client-sdk": "0.0.1",
 ```
+Or using npm install: 
+```
+npm install --save ff-react-native-client-sdk
+```
+
+for iOS run in project root folder, 
+```
+cd ios/ && pod install
+```
+
 
 Then, you may import package to your project. The SDK is used via single instance exported from `index.d.ts` module
 ```Javascript
