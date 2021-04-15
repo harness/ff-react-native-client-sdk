@@ -14,21 +14,20 @@ To install SDK, declare a dependency to project's `package.json` file:
 "ff-react-native-client-sdk": "0.0.1",
 ```
 Or using npm install: 
-```
-npm install --save ff-react-native-client-sdk
-```
-
-for iOS run in project root folder, 
-```
-cd ios/ && pod install
+```shell
+$ npm install --save ff-react-native-client-sdk
 ```
 
+For iOS, run the following commands from project root folder
+```shell
+$ cd ios
+$ pod install
+```
 
 Then, you may import package to your project. The SDK is used via single instance exported from `index.d.ts` module
 ```Javascript
 import cfClientInstance from 'ff-react-native-client-sdk';
 ```
-
 ## **_Initialization_**
 `cfClientInstance` is base instance that provides all the features of SDK. It is initialized with instances of `CfConfiguration` and `CfTarget`. All configuration fields are optional and if omitted they will be populated with default values by SDK.
 
