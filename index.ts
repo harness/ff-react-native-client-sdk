@@ -1,12 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
- import {NativeModules,NativeEventEmitter} from 'react-native';
+import {NativeModules,NativeEventEmitter} from 'react-native';
 
  //Model class used for evaluation's data returned via events listeners.
  export class EvaluationResponse {
@@ -37,7 +29,9 @@
    attributes?: any
  }
  
- 
+ //Base class for SDK operations. 
+ //It provides options to read current state of given evaluation or to subscribe for live SSE events, indicating a change in evaluation's state.
+ //To use it, first initialize() method must be called, as described below, for a given API key and target instance.
  class CfClient {
    eventEmitter = new NativeEventEmitter(NativeModules.ReactNativePlugin)
    listeners = [];
@@ -91,8 +85,9 @@
      return await NativeModules.ReactNativePlugin.initialize(apiKey, configuration, target)
    }
  
-   //Completion block of this method will be called on each SSE response event.
-   //This method needs to be called in order to get SSE events. Make sure to call initialize() prior to calling this method.
+  //Registering for SSE events is done inside this function and it must be called to get SSE events. 
+  //Make sure to call initialize() prior calling this method. Possible event types are “start”, “end”, “evaluation_polling”, “evaluation_change”.
+  //Events will be forwarded to the listener, passed-in as an argument.
    registerEventsListener(listener: (type: string, flags: any) => void) {
      this.removeEventEmitterListeners()
      this.addEventEmitterListeners()
@@ -103,7 +98,7 @@
      this.listeners.push(listener)
    }
  
-   //Unregister SSE event listener
+   //Unregister SSE events listener
    unregisterListener(listener: (type: string, flags: any) => void) {
      for (var i = 0; i < this.listeners.length; i++) {
  
@@ -162,9 +157,8 @@
      }
    }
  
-   //Clears the occupied resources and shuts down the sdk.
-   //After calling this method, the intialize() must be called again. It will also
-   //remove any registered event listeners.
+   //Clears the occupied resources, removes any registered event listeners and shuts down the sdk.
+   //After calling this method, the SDK will remain inactive until intialize() is called again.
    destroy() {
      NativeModules.ReactNativePlugin.destroy()
      this.unregisterAll()
