@@ -1,4 +1,4 @@
-Harness CF React Naive SDK
+Harness CF React Native SDK
 ========================
 ## Overview
 
@@ -9,21 +9,23 @@ Harness CF React Naive SDK
 
 ## _Setup_
 
-To install SDK, declare a dependency to project's `package.json` file:
+To install SDK, add a dependency to project's `package.json` file:
 ```JSON
 "ff-react-native-client-sdk": "0.0.1",
 ```
 
-Then, you may import package to your project. The SDK is used via single instance exported from `CfClient.ts` module
+Then, you may import package to your project. The SDK is used via single instance exported from `index.d.ts` module
 ```Javascript
-import cfClientInstance from './CfClient';
+import cfClientInstance from 'ff-react-native-client-sdk';
 ```
 
 ## **_Initialization_**
 `cfClientInstance` is base instance that provides all the features of SDK. It is initialized with instances of `CfConfiguration` and `CfTarget`. All configuration fields are optional and if omitted they will be populated with default values by SDK.
 
 ```JavaScript
-import cfClientInstance, {CfConfiguration, CfTarget} from './CfClient';
+import cfClientInstance, {CfConfiguration, CfTarget} from 'ff-react-native-client-sdk';
+
+const client = cfClientInstance;
 
 const cfConfiguration = new CfConfiguration();
 cfConfiguration.streamEnabled = true;
@@ -67,24 +69,24 @@ The Public API exposes a few methods that you can utilize:
 It is possible to fetch a value for a given evaluation. Evaluation is performed based on different type. In case there is no evaluation with provided id, the default value is returned.
 
 Use appropriate method to fetch the desired Evaluation of a certain type.
-### <u>_boolVariation(evalutionId: string, defaultValue?: boolean)_</u>
+### <u>_boolVariation(evaluationId: string, defaultValue?: boolean)_</u>
 
 ```JavaScript
 //get boolean evaluation
 let evaluation = await client.boolVariation("demo_bool_evaluation", false)
 ```
-### <u>_numberVariation(evalutionId: string, defaultValue?:number)_</u>
+### <u>_numberVariation(evaluationId: string, defaultValue?:number)_</u>
 ```JavaScript
 //get number evaluation
 let numberEvaluation = await client.numberVariation("demo_number_evaluation", 0)
 ```
 
-### <u>_stringVariation(evalutionId: string, defaultValue?:string)_</u>
+### <u>_stringVariation(evaluationId: string, defaultValue?:string)_</u>
 ```JavaScript
 //get string evaluaation
 let stringEvaluation = await client.stringVariation("demo_string_evaluation", "default");
 ```
-### <u>_jsonVariation(evalutionId: string, defaultValue: any)_</u>
+### <u>_jsonVariation(evaluationId: string, defaultValue?: any)_</u>
 ```JavaScript
 //get json evaluation
 let jsonEvaluation = await client.jsonVariation("demo_json_evaluation", {});
@@ -101,14 +103,15 @@ This method provides a way to register a listener for different events that migh
 ```
 
 Each type will return a corresponding value as shown in the table below.
+<br><br>
 
 | event type                 | returns                    |
 | :--------------------------| :-------------------------:|
 | "start"                    | null                       |
 | "end"                      | null                       |
-| "evaluation_polling"       | List<EvaluationResponse> |
+| "evaluation_polling"       | List<EvaluationResponse>   |
 | "evaluation_change"        | EvaluationResponse         |
-
+<br><br>
 
 Visit documentation for complete list of possible types and values they provide.
 

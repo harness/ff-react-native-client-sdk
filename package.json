@@ -1,32 +1,37 @@
 {
-  "name": "launchdarkly-react-native-client-sdk",
-  "version": "3.2.2",
-  "description": "",
-  "main": "index.js",
+  "name": "ff-react-native-client-sdk",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.ts",
   "types": "index.d.ts",
   "scripts": {
-    "check-typescript": "node_modules/typescript/bin/tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/launchdarkly/react-native-client-sdk.git"
-  },
-  "keywords": [
-    "react-native"
-  ],
-  "author": "LaunchDarkly",
+  "author": "Harness Inc",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/launchdarkly/react-native-client-sdk/issues"
+  "dependencies": {
+    "react": "16.13.1",
+    "react-native": "0.63.2"
   },
-  "homepage": "https://docs.launchdarkly.com/sdk/client-side/react-native",
   "peerDependencies": {
-    "react": "~16.13.0",
-    "react-native": "~0.63"
+	  "react-native": "~0.63",
+	  "react":"~16.13.0"
   },
   "devDependencies": {
-    "metro-react-native-babel-preset": "0.59.0",
-    "typescript": "^3.8.3"
+    "@babel/core": "^7.13.13",
+    "@babel/runtime": "^7.13.10",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.23.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.65.2",
+    "react-test-renderer": "16.13.1"
+  },
+  "jest": {
+    "preset": "react-native"
   }
 }
