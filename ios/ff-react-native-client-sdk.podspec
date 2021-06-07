@@ -1,7 +1,7 @@
 Pod::Spec.new do |ff|
 
   ff.name         = "ff-react-native-client-sdk"
-  ff.version      = "0.0.1"
+  ff.version      = "0.0.6"
   ff.summary      = "React Native SDK for Harness Feature Flags Management"
 
   ff.description  = <<-DESC
