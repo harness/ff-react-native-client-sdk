@@ -1,6 +1,6 @@
 {
   "name": "ff-react-native-client-sdk",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "private": false,
   "main": "index.ts",
   "types": "index.d.ts",
