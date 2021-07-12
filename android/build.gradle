@@ -41,7 +41,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
-    implementation 'io.harness:ff-android-client-sdk:0.0.6'
+    implementation 'io.harness:ff-android-client-sdk:1.0.2'
 }
 
 allprojects {
