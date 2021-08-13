@@ -14,7 +14,7 @@ Pod::Spec.new do |ff|
 
   ff.platform     = :ios, "10.0"
 
-  ff.source       = { :git => ff.homepage + '.git', :tag: => ff.version }
+  ff.source       = { :git => ff.homepage + '.git', :tag => ff.version }
   ff.source_files  = "**/*.{h,m,swift}"
 
   ff.swift_version = "5.0"
