@@ -18,8 +18,8 @@
     "react-native": "0.63.2"
   },
   "peerDependencies": {
-	  "react-native": "~0.63",
-	  "react":"~16.13.0"
+    "react-native": "~0.63",
+    "react": "~16.13.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.13",

@@ -25,6 +25,7 @@ import io.harness.cfsdk.CfConfiguration;
 import io.harness.cfsdk.cloud.core.model.Evaluation;
 import io.harness.cfsdk.cloud.events.AuthCallback;
 import io.harness.cfsdk.cloud.model.AuthInfo;
+import io.harness.cfsdk.cloud.events.AuthResult;
 import io.harness.cfsdk.cloud.model.Target;
 import io.harness.cfsdk.cloud.oksse.EventsListener;
 import io.harness.cfsdk.cloud.oksse.model.StatusEvent;
@@ -52,8 +53,8 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
         return map;
     }
 
-
     private EventsListener listener = new EventsListener() {
+
         @Override
         public void onEventReceived(StatusEvent statusEvent) {
 
@@ -72,7 +73,7 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
             } else if (statusEvent.getEventType() == StatusEvent.EVENT_TYPE.SSE_START) {
                 sendEvent("start", null);
             } else if (statusEvent.getEventType() == StatusEvent.EVENT_TYPE.SSE_END) {
-              sendEvent("end", null);
+                sendEvent("end", null);
             }
         }
     };
@@ -84,36 +85,55 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void initialize(String apiKey, ReadableMap configurationMap, ReadableMap targetMap,
-                           Promise callback) {
+    public void initialize(
+
+            String apiKey,
+            ReadableMap configurationMap,
+            ReadableMap targetMap,
+            Promise callback
+    ) {
         System.out.println("Native called init");
 
         CfConfiguration cfConfiguration = configurationFromMap(configurationMap);
         Target target = targetFromMap(targetMap);
 
         if (listener != null) {
+
             CfClient.getInstance().registerEventsListener(listener);
         }
-        CfClient.getInstance().initialize(getReactApplicationContext(), apiKey, cfConfiguration, target, new AuthCallback() {
-            @Override
-            public void authorizationSuccess(AuthInfo authInfo) {
-                callback.resolve(true);
-            }
-        });
+
+        CfClient.getInstance().initialize(
+
+                getReactApplicationContext(),
+                apiKey,
+                cfConfiguration,
+                target,
+
+                new AuthCallback() {
+
+                    @Override
+                    public void authorizationSuccess(AuthInfo authInfo, AuthResult result) {
+
+                        callback.resolve(result.isSuccess());
+                    }
+                });
     }
 
     @ReactMethod
     public void registerEventsListener(Promise callback) {
 
+        // TODO: Support me!
     }
 
     @ReactMethod
     public void stringVariation(String evaluationId, Promise callback) {
-      stringVariationWithFallback(evaluationId, null, callback);
+
+        stringVariationWithFallback(evaluationId, null, callback);
     }
 
     @ReactMethod
     public void stringVariationWithFallback(String evaluationId, String defaultValue, Promise callback) {
+
         String value = CfClient.getInstance().stringVariation(evaluationId, defaultValue);
         WritableMap map = Arguments.createMap();
         map.putString("flag", evaluationId);
@@ -124,11 +144,13 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void boolVariation(String evaluationId, Promise callback) {
-      boolVariationWithFallback(evaluationId, false, callback);
+
+        boolVariationWithFallback(evaluationId, false, callback);
     }
 
     @ReactMethod
     public void boolVariationWithFallback(String evaluationId, boolean defaultValue, Promise callback) {
+
         boolean value = CfClient.getInstance().boolVariation(evaluationId, defaultValue);
         WritableMap map = Arguments.createMap();
         map.putString("flag", evaluationId);
@@ -140,11 +162,13 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void numberVariation(String evaluationId, Promise callback) {
-      numberVariationWithFallback(evaluationId, null, callback);
+
+        numberVariationWithFallback(evaluationId, null, callback);
     }
 
     @ReactMethod
     public void numberVariationWithFallback(String evaluationId, Integer defaultValue, Promise callback) {
+
         double value = CfClient.getInstance().numberVariation(evaluationId, defaultValue);
         WritableMap map = Arguments.createMap();
         map.putString("flag", evaluationId);
@@ -155,11 +179,13 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void jsonVariation(String evaluationId, Promise callback) {
-      jsonVariationWithFallback(evaluationId, null, callback);
+
+        jsonVariationWithFallback(evaluationId, null, callback);
     }
 
     @ReactMethod
     public void jsonVariationWithFallback(String evaluationId, ReadableMap dataMap, Promise callback) {
+
         JSONObject defaultObject = new JSONObject(dataMap.toHashMap());
         JSONObject value = CfClient.getInstance().jsonVariation(evaluationId, defaultObject);
         WritableMap map = Arguments.createMap();
@@ -169,12 +195,13 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void destroy() {
+
         CfClient.getInstance().destroy();
         listener = null;
     }
 
-
     private CfConfiguration configurationFromMap(ReadableMap configurationMap) {
+
         CfConfiguration.Builder builder = CfConfiguration.builder();
         if (configurationMap.hasKey("streamEnabled")) {
             boolean enableStream = configurationMap.getBoolean("streamEnabled");
@@ -197,6 +224,7 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
     }
 
     private Target targetFromMap(ReadableMap targetMap) {
+
         Target target = new Target();
         if (targetMap.hasKey("name")) {
             String name = targetMap.getString("name");
@@ -208,5 +236,4 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
         }
         return target;
     }
-
 }
