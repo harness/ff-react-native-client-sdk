@@ -121,8 +121,6 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void registerEventsListener(Promise callback) {
-
-        // TODO: Support me!
     }
 
     @ReactMethod
