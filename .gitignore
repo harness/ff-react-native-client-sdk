@@ -314,4 +314,9 @@ Temporary Items
 .apdisk
 
 # End of https://www.toptal.com/developers/gitignore/api/reactnative
+
+.vscode
+.idea
+package-lock.json
+
 .DS_Store
