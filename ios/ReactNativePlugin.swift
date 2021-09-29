@@ -206,22 +206,32 @@ extension ReactNativePlugin {
     let configBuilder = CfConfiguration.builder()
 
     if let configUrl = dict["baseURL"] as? String {
+      
       _ = configBuilder.setConfigUrl(configUrl)
     }
 
-    if let eventUrl = dict["eventUrl"] as? String {
+    if let eventUrl = dict["eventURL"] as? String {
+      
       _ = configBuilder.setEventUrl(eventUrl)
+    }
+    
+    if let streamUrl = dict["streamURL"] as? String {
+      
+      _ = configBuilder.setStreamUrl(streamUrl)
     }
 
     if let streamEnabled = dict["streamEnabled"] as? Bool {
+      
       _ = configBuilder.setStreamEnabled(streamEnabled)
     }
 
     if let analyticsEnabled = dict["analyticsEnabled"] as? Bool {
+      
       _ = configBuilder.setAnalyticsEnabled(analyticsEnabled)
     }
 
     if let pollingInterval = dict["pollingInterval"] as? TimeInterval {
+      
       _ = configBuilder.setPollingInterval(pollingInterval)
     }
 
