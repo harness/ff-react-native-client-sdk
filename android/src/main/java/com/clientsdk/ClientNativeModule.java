@@ -310,7 +310,7 @@ public class ClientNativeModule extends ReactContextBaseJavaModule {
             );
         } else {
 
-            System.out.println("sendEvent(), module (hash): " + module.hashCode());
+            System.out.println("sendEvent(), module.emit");
             module.emit(type, data);
         }
     }
