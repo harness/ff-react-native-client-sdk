@@ -23,7 +23,7 @@ class ReactNativePlugin: RCTEventEmitter {
     print("Passed apiKey: \(apiKey)")
     let config = configFrom(dict: configuration)
     let target = targetFrom(dict: target)
-    
+
     CfClient.sharedInstance.initialize(apiKey: apiKey, configuration: config, target: target) {result in
       switch result {
         case .failure(let e):
@@ -33,7 +33,7 @@ class ReactNativePlugin: RCTEventEmitter {
       }
     }
   }
-  
+
   @objc func registerEventsListener(_ resolve:@escaping RCTPromiseResolveBlock, reject:@escaping RCTPromiseRejectBlock) {
     CfClient.sharedInstance.registerEventsListener { result in
       switch result {
@@ -66,7 +66,7 @@ class ReactNativePlugin: RCTEventEmitter {
       }
     }
   }
-  
+
   @objc func stringVariationWithFallback(_ evaluationId: String, defaultValue: String, resolve:@escaping RCTPromiseResolveBlock, reject:@escaping RCTPromiseRejectBlock) {
     CfClient.sharedInstance.stringVariation(evaluationId: evaluationId, defaultValue: defaultValue) { (evaluation) in
       let data = try? JSONEncoder().encode(evaluation)
@@ -143,7 +143,7 @@ class ReactNativePlugin: RCTEventEmitter {
     let key = defaultValue.keys.first!
     let value = defaultValue[key]
     let valueType: ValueType = determineType(value)
-    
+
     CfClient.sharedInstance.jsonVariation(evaluationId: evaluationId, defaultValue: [key:valueType]) { (evaluation) in
       let data = try? JSONEncoder().encode(evaluation)
       guard let validData = data else {
@@ -167,15 +167,15 @@ class ReactNativePlugin: RCTEventEmitter {
       resolve(json)
     }
   }
-  
+
   @objc func destroy() {
     CfClient.sharedInstance.destroy()
   }
-  
+
   override func supportedEvents() -> [String]! {
     return [EventTypeId.start.rawValue, EventTypeId.end.rawValue, EventTypeId.evaluationPolling.rawValue, EventTypeId.evaluationChange.rawValue]
   }
-  
+
   override class func requiresMainQueueSetup() -> Bool {
     return true
   }
@@ -202,25 +202,32 @@ extension ReactNativePlugin {
 extension ReactNativePlugin {
   //Extract CfConfiguration from dictionary
   func configFrom(dict: Dictionary<String, Any?>) -> CfConfiguration {
+
     let configBuilder = CfConfiguration.builder()
-    if let configUrl = dict["configUrl"] as? String {
+
+    if let configUrl = dict["baseURL"] as? String {
       _ = configBuilder.setConfigUrl(configUrl)
     }
+
     if let eventUrl = dict["eventUrl"] as? String {
       _ = configBuilder.setEventUrl(eventUrl)
     }
+
     if let streamEnabled = dict["streamEnabled"] as? Bool {
       _ = configBuilder.setStreamEnabled(streamEnabled)
     }
-    if let analitycsEnabled = dict["analyticsEnabled"] as? Bool {
-      _ = configBuilder.setAnalyticsEnabled(analitycsEnabled)
+
+    if let analyticsEnabled = dict["analyticsEnabled"] as? Bool {
+      _ = configBuilder.setAnalyticsEnabled(analyticsEnabled)
     }
+
     if let pollingInterval = dict["pollingInterval"] as? TimeInterval {
       _ = configBuilder.setPollingInterval(pollingInterval)
     }
+
     return configBuilder.build()
   }
-  
+
   //Extract CfTarget from dictionary
   func targetFrom(dict: Dictionary<String, Any?>) -> CfTarget {
     let targetBuilder = CfTarget.builder()
