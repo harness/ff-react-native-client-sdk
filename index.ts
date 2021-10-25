@@ -69,6 +69,9 @@ class CfClient {
         } else if (type == 'end') {
 
             this.sendEvent(type, null)
+        } else if (type == 'error') {
+
+            this.sendEvent(type, result)
         }
     }
 
@@ -81,6 +84,7 @@ class CfClient {
         this.eventEmitter.addListener("end", res => this.resolve("end", res));
         this.eventEmitter.addListener("evaluation_polling", res => this.resolve("evaluation_polling", res));
         this.eventEmitter.addListener("evaluation_change", res => this.resolve("evaluation_change", res));
+        this.eventEmitter.addListener("error", res => this.resolve("error", res));
         // this.eventEmitter.addListener("start", (event) => console.log('===> 1'));
         // this.eventEmitter.addListener("end", (event) => console.log('===> 2'));
         // this.eventEmitter.addListener("evaluation_polling", (event) => console.log('===> 3'));
@@ -98,6 +102,7 @@ class CfClient {
         this.eventEmitter.removeAllListeners("end")
         this.eventEmitter.removeAllListeners("evaluation_polling")
         this.eventEmitter.removeAllListeners("evaluation_change")
+        this.eventEmitter.removeAllListeners("error")
 
         console.log('removeEventEmitterListeners(): END')
     }

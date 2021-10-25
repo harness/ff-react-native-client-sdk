@@ -14,12 +14,12 @@
   "author": "Harness Inc",
   "license": "Apache-2.0",
   "dependencies": {
-    "react": "16.13.1",
-    "react-native": "0.63.2"
+    "@types/react-native": "^0.65.9",
+    "react": "16.13.1"
   },
   "peerDependencies": {
-    "react-native": "~0.63",
-    "react": "~16.13.0"
+    "react": "~16.13.0",
+    "@types/react-native": "^0.65.9"
   },
   "devDependencies": {
     "@babel/core": "^7.13.13",
