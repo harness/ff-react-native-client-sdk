@@ -17,7 +17,6 @@ class ReactNativePlugin: RCTEventEmitter {
     case end
     case evaluationPolling = "evaluation_polling"
     case evaluationChange  = "evaluation_change"
-    case error
 	}
 
   @objc func initialize(_ apiKey: String, configuration: [String:Any], target: [String:Any], resolve:@escaping RCTPromiseResolveBlock, reject:@escaping RCTPromiseRejectBlock) {
@@ -39,8 +38,9 @@ class ReactNativePlugin: RCTEventEmitter {
   private func registerEventsListener() {
     CfClient.sharedInstance.registerEventsListener {[weak self] result in
       switch result {
-        case .failure(let error):
-          self?.sendEvent(withName: EventTypeId.error.rawValue, body: "Could not register Events Listener")
+        case .failure(let _):
+          //In case registering Events Listener fails, return EventTypeId.start event with explanatory String body.
+          self?.sendEvent(withName: EventTypeId.start.rawValue, body: "Registering EventsListener failed")
         case .success(let eventType):
           switch eventType {
             case .onOpen: self?.sendEvent(withName: EventTypeId.start.rawValue, body: "SSE opened")
@@ -48,8 +48,8 @@ class ReactNativePlugin: RCTEventEmitter {
             case .onPolling(let evaluations):
               let data = try? JSONEncoder().encode(evaluations)
               guard let validData = data else {
-                let error = CFError.noDataError
-                self?.sendEvent(withName: EventTypeId.error.rawValue, body: "No data available on evaluation_polling")
+                //In case decoding `evaluations` data fails, return and empty array.
+                 self?.sendEvent(withName: EventTypeId.evaluationPolling.rawValue, body: [])
                 return
               }
               let json = try? JSONSerialization.jsonObject(with: validData, options: .allowFragments) as? [[String:Any]]
@@ -57,8 +57,8 @@ class ReactNativePlugin: RCTEventEmitter {
             case .onEventListener(let evaluation):
               let data = try? JSONEncoder().encode(evaluation)
               guard let validData = data else {
-                let error = CFError.noDataError
-                self?.sendEvent(withName: EventTypeId.error.rawValue, body: "No data available on evaluation_polling")
+                //In case decoding `evaluation` data fails, return an empty dictionary.
+                 self?.sendEvent(withName: EventTypeId.evaluationChange.rawValue, body: [:])
                 return
               }
               let json = try? JSONSerialization.jsonObject(with: validData, options: .allowFragments) as? [String:Any]
@@ -178,8 +178,7 @@ class ReactNativePlugin: RCTEventEmitter {
     return [EventTypeId.start.rawValue,
             EventTypeId.end.rawValue,
             EventTypeId.evaluationPolling.rawValue,
-            EventTypeId.evaluationChange.rawValue,
-            EventTypeId.error.rawValue]
+            EventTypeId.evaluationChange.rawValue]
   }
 
   override class func requiresMainQueueSetup() -> Bool {
