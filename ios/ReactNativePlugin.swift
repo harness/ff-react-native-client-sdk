@@ -48,7 +48,7 @@ class ReactNativePlugin: RCTEventEmitter {
             case .onPolling(let evaluations):
               let data = try? JSONEncoder().encode(evaluations)
               guard let validData = data else {
-                //In case decoding `evaluations` data fails, return and empty array.
+                //In case encoding `evaluations` data fails, return and empty array.
                  self?.sendEvent(withName: EventTypeId.evaluationPolling.rawValue, body: [])
                 return
               }
@@ -57,7 +57,7 @@ class ReactNativePlugin: RCTEventEmitter {
             case .onEventListener(let evaluation):
               let data = try? JSONEncoder().encode(evaluation)
               guard let validData = data else {
-                //In case decoding `evaluation` data fails, return an empty dictionary.
+                //In case encoding `evaluation` data fails, return an empty dictionary.
                  self?.sendEvent(withName: EventTypeId.evaluationChange.rawValue, body: [:])
                 return
               }
