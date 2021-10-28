@@ -20,9 +20,10 @@ To sign up, https://app.harness.io/auth/#/signup/
 ## _Setup_
 
 To install SDK, declare a dependency to project's `package.json` file:
-```JSON
-"ff-react-native-client-sdk": "1.0.0",
 ```
+"ff-react-native-client-sdk": "1.0.0"
+```
+
 Or using npm install: 
 ```shell
 $ npm install --save ff-react-native-client-sdk
@@ -76,7 +77,7 @@ The Public API exposes a few methods that you can utilize:
 
 * `jsonVariation(evalutionId: string, defaultValue: any)`
 
-* `registerEventsListener(listener: (type: string, flags: any) => void) `
+* `registerListener(listener: (type: string, flags: any) => void) `
 
 * `unregisterListener(listener: (type: string, flags: any) => void)`
 
@@ -116,7 +117,7 @@ let jsonEvaluation = await client.jsonVariation("demo_json_evaluation", {});
 This method provides a way to register a listener for different events that might be triggered by SDK, indicating specific change in SDK itself.
 
 ```JavaScript
-    client.registerEventsListener((type, flags) => {
+    client.registerListener((type, flags) => {
 
     });
 ```
