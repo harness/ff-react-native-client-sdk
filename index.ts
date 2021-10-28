@@ -69,7 +69,7 @@ class CfClient {
         } else if (type == 'end') {
 
             this.sendEvent(type, null)
-        }
+        } 
     }
 
     // Add Event Emitter Listeners, that match those on the native plugin side

@@ -18,8 +18,6 @@ RCT_EXTERN_METHOD(initialize:(NSString)apiKey
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(registerEventsListener:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
-
 RCT_EXTERN_METHOD(stringVariation:(NSString *)evaluationId resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(stringVariationWithFallback:(NSString *)evaluationId defaultValue:(NSString *)defaultValue resolve:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 
