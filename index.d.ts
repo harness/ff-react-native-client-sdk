@@ -1,4 +1,4 @@
-declare module 'ff-react-native-client-sdk' {
+declare module '@harnessio/ff-react-native-client-sdk' {
     //Model class to describe a target for features evaluations
     export class CfTarget {
         identifier: string
@@ -30,11 +30,11 @@ declare module 'ff-react-native-client-sdk' {
         // - target: `CfTarget` describing target for Evaluation fetching
         initialize(apiKey: string, configuration: CfConfiguration, target: CfTarget): Promise<Boolean>
 
-        //Registering for SSE events is done inside this function. 
+        //Registering for SSE events is done inside this function.
         //Events registered are "start", "end", "evaluation_polling", "evaluation_change".
         //These events will be forwarded to the listener, passed-in as an argument.
         //This method needs to be called in order to get SSE events. Make sure to call initialize() prior to calling this method.
-        // - type: Type of event received through listener. 
+        // - type: Type of event received through listener.
         //   - possible values: "start", "end", "evaluation_polling", "evaluation_change"
         // - flags: An array or a single evaluation flag received, depending on a received event
         registerEventsListener(listener: (type: string, flags: any) => void) : void
