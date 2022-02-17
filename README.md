@@ -21,12 +21,12 @@ To sign up, https://app.harness.io/auth/#/signup/
 
 To install SDK, declare a dependency to project's `package.json` file:
 ```
-"ff-react-native-client-sdk": "1.0.0"
+"@harnessio/ff-react-native-client-sdk": "^1.0.0"
 ```
 
-Or using npm install: 
+Or using npm install:
 ```shell
-$ npm install --save ff-react-native-client-sdk
+$ npm install --save @harnessio/ff-react-native-client-sdk
 ```
 
 For iOS, run the following commands from project root folder
@@ -37,13 +37,13 @@ $ pod install
 
 Then, you may import package to your project. The SDK is used via single instance exported from `index.d.ts` module
 ```Javascript
-import cfClientInstance from 'ff-react-native-client-sdk';
+import cfClientInstance from '@harnessio/ff-react-native-client-sdk';
 ```
 ## **_Initialization_**
 `cfClientInstance` is base instance that provides all the features of SDK. It is initialized with instances of `CfConfiguration` and `CfTarget`. All configuration fields are optional and if omitted they will be populated with default values by SDK.
 
 ```JavaScript
-import cfClientInstance, {CfConfiguration, CfTarget} from 'ff-react-native-client-sdk';
+import cfClientInstance, {CfConfiguration, CfTarget} from '@harnessio/ff-react-native-client-sdk';
 
 const client = cfClientInstance;
 
@@ -135,7 +135,7 @@ Each type will return a corresponding value as shown in the table below.
 
 Visit documentation for complete list of possible types and values they provide.
 
-To avoid unexpected behaviour, when listener is not needed anymore, a caller should call 
+To avoid unexpected behaviour, when listener is not needed anymore, a caller should call
 `client.unregisterListener(eventsListener)`
 This way the sdk will remove desired listener from internal list.
 
