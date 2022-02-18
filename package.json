@@ -13,6 +13,10 @@
   },
   "author": "Harness Inc",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harness/ff-react-native-client-sdk.git"
+  },
   "peerDependencies": {
     "react-native": ">=0.63",
     "react": ">=16 || >=17"
