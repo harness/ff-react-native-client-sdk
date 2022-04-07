@@ -21,7 +21,7 @@ To sign up, https://app.harness.io/auth/#/signup/
 
 To install SDK, declare a dependency to project's `package.json` file:
 ```
-"@harnessio/ff-react-native-client-sdk": "^1.0.0"
+"@harnessio/ff-react-native-client-sdk": "^1.0.1"
 ```
 
 Or using npm install:
