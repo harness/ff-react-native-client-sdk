@@ -6,8 +6,8 @@ buildscript {
 
         buildToolsVersion = "29.0.2"
         minSdkVersion = 19
-        compileSdkVersion = 29
-        targetSdkVersion = 29
+        compileSdkVersion = 31
+        targetSdkVersion = 31
     }
 
     repositories {
@@ -54,7 +54,7 @@ apply plugin: 'com.android.library'
 
 android {
 
-    compileSdkVersion 29
+    compileSdkVersion 31
 
     compileOptions {
 
@@ -65,7 +65,7 @@ android {
     defaultConfig {
 
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 31
 
         versionCode 1
         versionName "1.0"
@@ -91,6 +91,6 @@ dependencies {
     // noinspection GradleDynamicVersion
 
     api "com.facebook.react:react-native:0.63.2"  // From node_modules
-    api "io.harness:ff-android-client-sdk:1.0.3"
+    api "io.harness:ff-android-client-sdk:1.0.9"
 }
 
