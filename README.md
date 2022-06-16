@@ -1,30 +1,41 @@
-Harness CF React Native SDK
+React Native SDK For Harness Feature Flags
 ========================
-## Overview
 
--------------------------
-[Harness](https://www.harness.io/) is a feature management platform that helps teams to build better software and to test features quicker.
-
-# Before you Begin
-Harness Feature Flags (FF) is a feature management solution that enables users to change the software’s functionality, without deploying new code. FF uses feature flags to hide code or behaviours without having to ship new versions of the software. A feature flag is like a powerful if statement.
-
-For more information, see https://harness.io/products/feature-flags/
-
-To read more, see https://ngdocs.harness.io/category/vjolt35atg-feature-flags
-
-To sign up, https://app.harness.io/auth/#/signup/
+## Table of Contents
+**[Intro](#Intro)**<br>
+**[Requirements](#Requirements)**<br>
+**[Quickstart](#Quickstart)**<br>
+**[Further Reading](docs/further_reading.md)**<br>
+**[Build Instructions](docs/build.md)**<br>
 
 
--------------------------
+## Intro
 
-## _Setup_
+Use this README to get started with our Feature Flags (FF) SDK for React Native. This guide outlines the basics of getting started with the SDK and provides a full code sample for you to try out.
+This sample doesn’t include configuration options, for in depth steps and configuring the SDK, for example, disabling streaming or using our Relay Proxy, see the  [React Native SDK Reference](https://ngdocs.harness.io/article/z2w6uj9mzb-react-native-sdk-reference).
 
-To install SDK, declare a dependency to project's `package.json` file:
+For a sample FF React Native SDK project, see our test [test React Native project](examples/getting_started/getting_started.py).
+
+![FeatureFlags](https://github.com/harness/ff-react-native-client-sdk/raw/main/docs/images/ff-gui.png)
+
+## Requirements
+
+[React 16](https://reactjs.org/) or newer<br>
+[React Native 0.63](https://reactnative.dev/docs/environment-setup) or newer<br>
+
+## Quickstart
+To follow along with our test code sample, make sure you’ve:
+
+- [Created a Feature Flag on the Harness Platform](https://ngdocs.harness.io/article/1j7pdkqh7j-create-a-feature-flag) called harnessappdemodarkmode
+- [Created a Client SDK key and made a copy of it](https://ngdocs.harness.io/article/1j7pdkqh7j-create-a-feature-flag#step_3_create_an_sdk_key)
+-
+### Install the SDK
+Install the React Native SDK by adding it to your project's `package.json` file:
 ```
 "@harnessio/ff-react-native-client-sdk": "^1.0.1"
 ```
 
-Or using npm install:
+Or install using npm:
 ```shell
 $ npm install --save @harnessio/ff-react-native-client-sdk
 ```
@@ -35,112 +46,107 @@ $ cd ios
 $ pod install
 ```
 
-Then, you may import package to your project. The SDK is used via single instance exported from `index.d.ts` module
-```Javascript
-import cfClientInstance from '@harnessio/ff-react-native-client-sdk';
-```
-## **_Initialization_**
-`cfClientInstance` is base instance that provides all the features of SDK. It is initialized with instances of `CfConfiguration` and `CfTarget`. All configuration fields are optional and if omitted they will be populated with default values by SDK.
+### Code Sample
+The following is a complete code example with a fresh React-Native project that you can use to test the `harnessappdemodarkmode` Flag you created on the Harness Platform. When you run the code it will:
+- Connect to the FF service.
+- Report the value of the Flag in the mobile simulator. 
 
-```JavaScript
+Install expo.
+```shell
+npm install -g expo-cli
+```
+
+Using Expo, initialize a project. For the best experience, select `Minimal` as the template when prompted.
+```shell
+expo init SampleProject
+cd SampleProject
+```
+
+Add the Harness React Native SDK to the `package.json` under the `dependencies` section.
+```json
+"@harnessio/ff-react-native-client-sdk": "^1.0.1"
+```
+
+Replace the code in `App.js` with the following Sample Code, and replace `apiKey` with your Client SDK Key.
+```javascript
 import cfClientInstance, {CfConfiguration, CfTarget} from '@harnessio/ff-react-native-client-sdk';
 
-const client = cfClientInstance;
+export default function App() {
+  const flagName = 'harnessappdemodarkmode';
 
-const cfConfiguration = new CfConfiguration();
-cfConfiguration.streamEnabled = true;
+  const [client, setClient] = useState(null);
+  const [flagValue, setFlagValue] = useState(null);
 
-const cfTarget = new CfTarget();
-cfTarget.identifier = 'Harness'
+  async function initializeClient() {
+    let cfClient = cfClientInstance;
+    let cfConfig = new CfConfiguration();
+    cfConfig.streamEnabled = true;
 
-const apiKey = "YOUR_API_KEY";
+    const cfTarget = new CfTarget();
+    cfTarget.identifier = 'Harness RN Sample App'
 
-const result = await cfClientInstance.initialize(apiKey, cfConfiguration, cfTarget);
-```
-`cfTarget` represents a desired target for which we want features to be evaluated. `identifier` is mandatory field.
+    const apiKey = "your-client-sdk-key";
 
-`"YOUR_API_KEY"` is an authentication key, needed for access to Harness services.
+    try {
+      await cfClientInstance.initialize(apiKey, cfConfig, cfTarget);
+    } catch (err) {
+      console.log(err);
+    }
+    setClient(cfClient);
+  }
 
-**Your Harness SDK is now initialized. Congratulations!!!**
-<br><br>
-### **_Public API Methods_** ###
-The Public API exposes a few methods that you can utilize:
+  async function evalFlag() {
+    let res = await client.boolVariation(flagName, false);
+    setFlagValue(res.value);
+  }
 
+  useEffect(() => {
+    if (client == null) {
+      initializeClient();
+    } else {
+      evalFlag();
+    }
+  });
 
-* `async initialize(apiKey: string, config: CfConfiguration, target:CfTarget)`
+  return (
+    <View style={styles.container}>
+      <Text>
+        Feature flag '{flagName}' is {JSON.stringify(flagValue)}
+      </Text>
+    </View>
+  );
+}
 
-* `boolVariation(evalutionId: string, defaultValue?: boolean)`
-
-* `stringVariation(evalutionId: string, defaultValue?:string)`
-
-* `numberVariation(evalutionId: string, defaultValue?:number)`
-
-* `jsonVariation(evalutionId: string, defaultValue: any)`
-
-* `registerListener(listener: (type: string, flags: any) => void) `
-
-* `unregisterListener(listener: (type: string, flags: any) => void)`
-
-* `destroy()`
-<br><br>
-
-
-## Fetch evaluation's value
-It is possible to fetch a value for a given evaluation. Evaluation is performed based on different type. In case there is no evaluation with provided id, the default value is returned.
-
-Use appropriate method to fetch the desired Evaluation of a certain type.
-### <u>_boolVariation(evaluationId: string, defaultValue?: boolean)_</u>
-
-```JavaScript
-//get boolean evaluation
-let evaluation = await client.boolVariation("demo_bool_evaluation", false)
-```
-### <u>_numberVariation(evaluationId: string, defaultValue?:number)_</u>
-```JavaScript
-//get number evaluation
-let numberEvaluation = await client.numberVariation("demo_number_evaluation", 0)
-```
-
-### <u>_stringVariation(evaluationId: string, defaultValue?:string)_</u>
-```JavaScript
-//get string evaluaation
-let stringEvaluation = await client.stringVariation("demo_string_evaluation", "default");
-```
-### <u>_jsonVariation(evaluationId: string, defaultValue?: any)_</u>
-```JavaScript
-//get json evaluation
-let jsonEvaluation = await client.jsonVariation("demo_json_evaluation", {});
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 ```
 
-## _Register for events_
-This method provides a way to register a listener for different events that might be triggered by SDK, indicating specific change in SDK itself.
+### Running the example
 
-```JavaScript
-    client.registerListener((type, flags) => {
-
-    });
+Start your desired simulator, either Android or iOS and run
+```shell
+yarn run ios
 ```
-
-Each type will return a corresponding value as shown in the table below.
-<br><br>
-
-| event type                 | returns                    |
-| :--------------------------| :-------------------------:|
-| "start"                    | null                       |
-| "end"                      | null                       |
-| "evaluation_polling"       | List<EvaluationResponse>   |
-| "evaluation_change"        | EvaluationResponse         |
-<br><br>
-
-Visit documentation for complete list of possible types and values they provide.
-
-To avoid unexpected behaviour, when listener is not needed anymore, a caller should call
-`client.unregisterListener(eventsListener)`
-This way the sdk will remove desired listener from internal list.
-
-## _Shutting down the SDK_
-To avoid potential memory leak, when SDK is no longer needed (when the app is closed, for example), a caller should call this method
-```JavaScript
-client.destroy()
+or
+```shell
+expo run:ios
 ```
+Replace `ios` above with `android` if running on an Android simulator.
+
+### Additional Reading
+
+For further examples and config options, see the [React Native SDK Reference](https://ngdocs.harness.io/article/z2w6uj9mzb-react-native-sdk-reference).
+
+For more information about Feature Flags, see our [Feature Flags documentation](https://ngdocs.harness.io/article/0a2u2ppp8s-getting-started-with-feature-flags).
+
+-------------------------
+[Harness](https://www.harness.io/) is a feature management platform that helps teams to build better software and to
+test features quicker.
+
+-------------------------
