@@ -32,7 +32,7 @@ To follow along with our test code sample, make sure you’ve:
 ### Install the SDK
 Install the React Native SDK by adding it to your project's `package.json` file:
 ```
-"@harnessio/ff-react-native-client-sdk": "^1.0.1"
+"@harnessio/ff-react-native-client-sdk": "^1.0.2"
 ```
 
 Or install using npm:
@@ -64,7 +64,7 @@ cd SampleProject
 
 Add the Harness React Native SDK to the `package.json` under the `dependencies` section.
 ```json
-"@harnessio/ff-react-native-client-sdk": "^1.0.1"
+"@harnessio/ff-react-native-client-sdk": "^1.0.2"
 ```
 
 Replace the code in `App.js` with the following Sample Code, and replace `apiKey` with your Client SDK Key.

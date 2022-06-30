@@ -91,6 +91,6 @@ dependencies {
     // noinspection GradleDynamicVersion
 
     api "com.facebook.react:react-native:0.63.2"  // From node_modules
-    api "io.harness:ff-android-client-sdk:1.0.9"
+    api "io.harness:ff-android-client-sdk:1.0.10"
 }
 
