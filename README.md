@@ -14,8 +14,6 @@ React Native SDK For Harness Feature Flags
 Use this README to get started with our Feature Flags (FF) SDK for React Native. This guide outlines the basics of getting started with the SDK and provides a full code sample for you to try out.
 This sample doesn’t include configuration options, for in depth steps and configuring the SDK, for example, disabling streaming or using our Relay Proxy, see the  [React Native SDK Reference](https://ngdocs.harness.io/article/z2w6uj9mzb-react-native-sdk-reference).
 
-For a sample FF React Native SDK project, see our test [test React Native project](examples/getting_started/getting_started.py).
-
 ![FeatureFlags](https://github.com/harness/ff-react-native-client-sdk/raw/main/docs/images/ff-gui.png)
 
 ## Requirements
@@ -28,7 +26,7 @@ To follow along with our test code sample, make sure you’ve:
 
 - [Created a Feature Flag on the Harness Platform](https://ngdocs.harness.io/article/1j7pdkqh7j-create-a-feature-flag) called harnessappdemodarkmode
 - [Created a Client SDK key and made a copy of it](https://ngdocs.harness.io/article/1j7pdkqh7j-create-a-feature-flag#step_3_create_an_sdk_key)
--
+
 ### Install the SDK
 Install the React Native SDK by adding it to your project's `package.json` file:
 ```
