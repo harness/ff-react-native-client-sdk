@@ -1,6 +1,11 @@
 React Native SDK For Harness Feature Flags
 ========================
 
+# Deprecation Notice
+This React Native SDK for Harness Feature Flags is now deprecated and will no longer be actively maintained. 
+We encourage users to migrate to our React SDK. For more information on transitioning to the React SDK, 
+please refer to the [React SDK Documentation](https://developer.harness.io/docs/feature-flags/ff-sdks/client-sdks/react-client/).
+
 ## Table of Contents
 **[Intro](#Intro)**<br>
 **[Requirements](#Requirements)**<br>
