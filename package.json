@@ -1,6 +1,6 @@
 {
   "name": "@harnessio/ff-react-native-client-sdk",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "main": "index.ts",
   "types": "index.d.ts",

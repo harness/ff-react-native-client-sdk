@@ -1,3 +1,8 @@
+console.warn('DEPRECATION WARNING: The @harnessio/ff-react-native-client-sdk is deprecated and will ' +
+    'no longer be actively maintained. Please migrate to our React SDK. For more information, visit ' +
+    'the React SDK Documentation[https://developer.harness.io/docs/feature-flags/ff-sdks/client-sdks/react-client/].');
+
+
 import {NativeModules, NativeEventEmitter} from 'react-native';
 
 //Model class used for evaluation's data returned via events listeners.
@@ -69,7 +74,7 @@ class CfClient {
         } else if (type == 'end') {
 
             this.sendEvent(type, null)
-        } 
+        }
     }
 
     // Add Event Emitter Listeners, that match those on the native plugin side
