@@ -76,8 +76,8 @@ export default function App() {
       <FFContextProvider
         apiKey="YOUR_API_KEY"
         target={{
-          identifier: 'reactnativeclientsdk',
-          name: 'ReactNativeClientSDK'
+          identifier: 'YOUR_TARGET_IDENTIFIER', // <- replace with an identifier unique to the user, e.g. email or UUID
+          name: 'YOUR TARGET NAME' // <- replace with a name unique to the user
         }}
       >
         <SingleFeatureFlag />
@@ -127,6 +127,29 @@ circumstances it may be beneficial to immediately render the application and han
 component-by-component basis. The React Native Client SDK's asynchronous mode allows this by passing the
 optional `async` prop when connecting with the `FFContextProvider`.
 
+## Streaming and polling
+
+By default, the React Native Client SDK will set up a stream to keep the feature flag values up-to-date when things
+change in your Harness project. When a change is made in the Harness project, Harness will send an event to the SDK and
+the SDK will serve the changed value. This is great when your application needs to change in near-real-time when a
+feature flag changes (for example, your application might need to display a maintenance screen when the backend APIs are
+being updated). However, in some circumstances, polling might be a better option. When streaming is disabled and polling
+is enabled, the SDK will periodically poll for current feature flag values and keep your application up-to-date. By
+default, the interval for polling is 60 seconds and can be adjusted to suit your application.
+
+### Streaming
+
+Streaming is enabled by default and can be disabled using the `streamEnabled` option and passing `false`. In the event
+that the stream is interrupted, the SDK will attempt to reconnect automatically. If after a number of attempts the
+stream cannot be re-established, the SDK will switch to polling unless specifically disabled using the `pollingEnabled`
+option.
+
+### Polling
+
+Polling is disabled by default and can be enabled using the `pollingEnabled` option and passing `true`. When enabled,
+the SDK will poll for feature flag value changes every 60 seconds, this can be adjusted using the `pollingInterval`
+option and passing the number of milliseconds you want the SDK to wait between polling.
+
 ## Caching evaluations
 
 In practice flags rarely change and so it can be useful to cache the last received evaluations from the server to allow
@@ -139,8 +162,8 @@ from the server behind the scenes.
 <FFContextProvider
   apiKey="YOUR_API_KEY"
   target={{
-    identifier: 'reactclientsdk',
-    name: 'ReactClientSDK'
+    identifier: 'YOUR_TARGET_IDENTIFIER',
+    name: 'YOUR TARGET NAME'
   }}
   options={{
     cache: true
@@ -199,8 +222,8 @@ return (
   <FFContextProvider
     apiKey="YOUR_API_KEY"
     target={{
-      identifier: 'reactclientsdk',
-      name: 'ReactClientSDK'
+      identifier: 'YOUR_TARGET_IDENTIFIER',
+      name: 'YOUR TARGET NAME'
     }}
     options={{
       logger: myLogger
@@ -209,6 +232,31 @@ return (
     <MyApp />
   </FFContextProvider>
 )
+```
+
+## Fast startup
+
+By default, the React Native Client SDK will connect to the Harness Feature Flags service to get the current feature
+flag values and then render your application. Using a combination of the `cache` option
+(see [Caching evaluations](#caching-evaluations) above) and Async mode (see [Async mode](#async-mode) above), you can
+instruct the SDK to instead render immediately using previously cached values (in the case of a returning user) or
+default values (in the case of new users). The SDK will immediately render your application and asynchronously connect
+to the Harness Feature Flags service to make sure the cached feature flag values are kept up-to-date.
+
+```typescript jsx
+<FFContextProvider
+  async
+  apiKey="YOUR_API_KEY"
+  target={{
+    identifier: 'YOUR_TARGET_IDENTIFIER',
+    name: 'YOUR TARGET NAME'
+  }}
+  options={{
+    cache: true
+  }}
+>
+  <MyApp />
+</FFContextProvider>
 ```
 
 ## API
@@ -239,8 +287,8 @@ function MyComponent() {
       async={false} // OPTIONAL: whether or not to use async mode
       apiKey="YOUR_API_KEY" // your SDK API key
       target={{
-        identifier: 'targetId', // unique ID of the Target
-        name: 'Target Name',  // name of the Target
+        identifier: 'YOUR_TARGET_IDENTIFIER', // replace with a unique ID for the Target 
+        name: 'YOUR TARGET NAME',  // replace with the unique name of the Target
         attributes: { // OPTIONAL: key/value pairs of attributes of the Target
           customAttribute: 'this is a custom attribute',
           anotherCustomAttribute: 'this is something else'
@@ -253,7 +301,9 @@ function MyComponent() {
         eventUrl: 'https://url-for-events.com',
         streamEnabled: true,
         debug: false,
-        eventsSyncInterval: 60000
+        eventsSyncInterval: 60000,
+        pollingEnabled: false,
+        pollingInterval: 60000
       }}
       initialEvaluations={evals} // OPTIONAL: array of evaluations to use while fetching
       onError={handler} // OPTIONAL: event handler to be called on network error
@@ -529,7 +579,7 @@ const MyComponentWithClient = withFeatureFlagsClient(MyComponent)
 ## Additional Reading
 
 For further examples and config options, see
-the [React Native Client SDK Reference](https://developer.harness.io/docs/feature-flags/ff-sdks/client-sdks/react-native-client)
+the [React Native Client SDK Reference](https://developer.harness.io/docs/feature-flags/ff-sdks/client-sdks/react-native-sdk-reference/)
 For more information about Feature Flags, see
 our [Feature Flags documentation](https://developer.harness.io/docs/feature-flags/ff-onboarding/getting-started-with-feature-flags/).
 
