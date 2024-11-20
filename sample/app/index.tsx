@@ -47,7 +47,7 @@ function SingleFeatureFlag() {
 }
 
 function MultipleFeatureFlags() {
-  const flags = useFeatureFlags(['My_Test_Flag', 'KJFlag'])
+  const flags = useFeatureFlags(['boolflagwith12groups', 'stringflagwith12groups','numberflagnogrouprule','jsonflagnogrouprule','numberflag'])
 
   return (
       <>
