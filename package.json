@@ -23,7 +23,7 @@
     "@react-native-async-storage/async-storage": ">=1.0.0"
   },
   "dependencies": {
-    "@harnessio/ff-react-client-sdk": "2.0.0"
+    "@harnessio/ff-react-client-sdk": "^2.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",
