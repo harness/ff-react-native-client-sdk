@@ -270,7 +270,7 @@ the `apiKey` you have set up in your Harness Feature Flags account, and the `tar
 user.
 
 The `FFContextProvider` component also accepts an `options` object, a `fallback` component, an array
-of `initialEvaluations`, an `onError` handler, and can be placed in [Async mode](#Async-mode) using the `asyncM` prop.
+of `initialEvaluations`, an `onError` handler, and can be placed in [Async mode](#Async-mode) using the `asyncMode` prop.
 The `fallback` component will be displayed while the SDK is connecting and fetching your flags. The `initialEvaluations`
 prop allows you pass an array of evaluations to use immediately as the SDK is authenticating and fetching flags.
 The `onError` prop allows you to pass an event handler which will be called whenever a network error occurs.
