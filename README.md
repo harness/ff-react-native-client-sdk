@@ -125,7 +125,7 @@ By default, the React Native Client SDK will block rendering of children until t
 completed. This ensures that children have immediate access to all flags when they are rendered. However, in some
 circumstances it may be beneficial to immediately render the application and handle display of loading on a
 component-by-component basis. The React Native Client SDK's asynchronous mode allows this by passing the
-optional `async` prop when connecting with the `FFContextProvider`.
+optional `asyncMode` prop when connecting with the `FFContextProvider`.
 
 ## Streaming and polling
 
@@ -245,7 +245,7 @@ to the Harness Feature Flags service to make sure the cached feature flag values
 
 ```typescript jsx
 <FFContextProvider
-  async
+  asyncMode
   apiKey="YOUR_API_KEY"
   target={{
     identifier: 'YOUR_TARGET_IDENTIFIER',
@@ -270,7 +270,7 @@ the `apiKey` you have set up in your Harness Feature Flags account, and the `tar
 user.
 
 The `FFContextProvider` component also accepts an `options` object, a `fallback` component, an array
-of `initialEvaluations`, an `onError` handler, and can be placed in [Async mode](#Async-mode) using the `async` prop.
+of `initialEvaluations`, an `onError` handler, and can be placed in [Async mode](#Async-mode) using the `asyncMode` prop.
 The `fallback` component will be displayed while the SDK is connecting and fetching your flags. The `initialEvaluations`
 prop allows you pass an array of evaluations to use immediately as the SDK is authenticating and fetching flags.
 The `onError` prop allows you to pass an event handler which will be called whenever a network error occurs.
@@ -284,7 +284,7 @@ import { FFContextProvider } from '@harnessio/ff-react-native-client-sdk'
 function MyComponent() {
   return (
     <FFContextProvider
-      async={false} // OPTIONAL: whether or not to use async mode
+      asyncMode={false} // OPTIONAL: whether or not to use async mode
       apiKey="YOUR_API_KEY" // your SDK API key
       target={{
         identifier: 'YOUR_TARGET_IDENTIFIER', // replace with a unique ID for the Target 

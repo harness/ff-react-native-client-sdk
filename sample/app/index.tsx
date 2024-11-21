@@ -11,16 +11,15 @@ export default function App() {
   return (
       <View style={styles.container}>
         <FFContextProvider
-            apiKey=""
+            apiKey="" // <- add your api key for the test environment
             target={{
               identifier: 'target1', // <- replace with an identifier unique to the user, e.g. email or UUID
               name: 'target1' // <- replace with a name unique t o the user
             }}
-            async={true}
-            options={{cache: true, debug: true, streamEnabled: false, pollingEnabled: true}}
+            asyncMode={true}
+            options={{ cache: true }}
         >
-
-          { <MultipleFeatureFlags />}
+          <MultipleFeatureFlags />
         </FFContextProvider>
 
         <StatusBar style="auto" />
