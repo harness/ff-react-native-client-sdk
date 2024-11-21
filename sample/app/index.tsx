@@ -17,7 +17,7 @@ export default function App() {
               name: 'target1' // <- replace with a name unique t o the user
             }}
             asyncMode={true}
-            options={{cache: true, debug: true, streamEnabled: true, pollingEnabled: true}}
+            options={{cache: true, debug: true, streamEnabled: false, pollingEnabled: true}}
         >
 
           { <MultipleFeatureFlags />}
