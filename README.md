@@ -182,6 +182,12 @@ interface CacheOptions {
   // storage mechanism to use, conforming to the Web Storage API standard, can be either synchronous or asynchronous
   // defaults to localStorage
   storage?: AsyncStorage | SyncStorage
+  // use target attributes when deriving the cache key
+  // when set to `false` or omitted, the key will be formed using only the target identifier and SDK key
+  // when set to `true`, all target attributes with be used in addition to the target identifier and SDK key
+  // can be set to an array of target attributes to use a subset in addition to the target identifier and SDK key
+  // defaults to false
+  deriveKeyFromTargetAttributes?: boolean | string[]
 }
 
 interface SyncStorage {
@@ -270,7 +276,8 @@ the `apiKey` you have set up in your Harness Feature Flags account, and the `tar
 user.
 
 The `FFContextProvider` component also accepts an `options` object, a `fallback` component, an array
-of `initialEvaluations`, an `onError` handler, and can be placed in [Async mode](#Async-mode) using the `asyncMode` prop.
+of `initialEvaluations`, an `onError` handler, and can be placed in [Async mode](#Async-mode) using the `asyncMode`
+prop.
 The `fallback` component will be displayed while the SDK is connecting and fetching your flags. The `initialEvaluations`
 prop allows you pass an array of evaluations to use immediately as the SDK is authenticating and fetching flags.
 The `onError` prop allows you to pass an event handler which will be called whenever a network error occurs.
