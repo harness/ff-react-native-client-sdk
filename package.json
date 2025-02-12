@@ -1,6 +1,6 @@
 {
   "name": "@harnessio/ff-react-native-client-sdk",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "author": "Harness",
   "license": "Apache-2.0",
   "module": "dist/esm/index.js",
@@ -23,7 +23,7 @@
     "@react-native-async-storage/async-storage": ">=1.0.0"
   },
   "dependencies": {
-    "@harnessio/ff-react-client-sdk": "^2.1.0"
+    "@harnessio/ff-react-client-sdk": "^2.2.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",
