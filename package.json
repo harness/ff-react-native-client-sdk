@@ -18,12 +18,13 @@
     "format": "prettier --write src"
   },
   "peerDependencies": {
+    "@react-native-async-storage/async-storage": ">=1.0.0",
     "react": ">=16.7.0",
-    "react-native": ">=0.70.0",
-    "@react-native-async-storage/async-storage": ">=1.0.0"
+    "react-native": ">=0.70.0"
   },
   "dependencies": {
-    "@harnessio/ff-react-client-sdk": "^2.4.0"
+    "@harnessio/ff-react-client-sdk": "^2.4.0",
+    "tar": "^7.5.7"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",
