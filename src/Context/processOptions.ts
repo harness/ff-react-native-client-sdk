@@ -44,4 +44,6 @@ function processCacheOptions(cache: CacheOptions): CacheOptions {
       storage: AsyncStorage
     }
   }
+
+  return cache
 }

@@ -18,6 +18,11 @@ const config: Config.InitialOptions = {
     '^.+\\.tsx?$': 'ts-jest'
   },
   moduleDirectories: ['node_modules', 'src'],
+  moduleNameMapper: {
+    '^react-native$': '<rootDir>/test/mocks/react-native.ts',
+    '^@react-native-async-storage/async-storage$': '<rootDir>/test/mocks/async-storage.ts',
+    '^@harnessio/ff-react-client-sdk$': '<rootDir>/test/mocks/ff-react-client-sdk.tsx'
+  },
   coverageThreshold: {
     global: {
       statements: 80,
